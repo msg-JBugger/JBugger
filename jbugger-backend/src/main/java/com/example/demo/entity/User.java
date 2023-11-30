@@ -1,14 +1,11 @@
 package com.example.demo.entity;
 
-import com.example.demo.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
@@ -22,25 +19,57 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long userId;
 
     private String firstName;
 
     private String lastName;
 
     private String email;
-
     private String username;
     private String password;
 
     private String mobileNumber;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_notification",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "notificationId")
+    )
+    private Set<Notification> notifications = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "createdByUser",
+            cascade = CascadeType.ALL
+    )
+    private List<Bug> createdBugs;
+
+    @OneToMany(
+            mappedBy = "assignedTo",
+            cascade = CascadeType.ALL
+    )
+    private List<Bug> assignedBugs;
+
+    @OneToMany(
+            mappedBy = "user",
+            targetEntity = Comment.class,
+            cascade = CascadeType.ALL
+    )
+    private Set<Comment> userComments = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(roles.toString()));
     }
 
     @Override
