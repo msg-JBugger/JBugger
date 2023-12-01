@@ -1,7 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.auth.AuthenticationRequest;
+import com.example.demo.auth.AuthenticationResponse;
+import com.example.demo.auth.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.repo.UserRepositoryInterface;
+import com.example.demo.service.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +17,27 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
     @Autowired
     private UserRepositoryInterface userRepository;
+
+    private final AuthenticationService service;
+
+    @PostMapping("/add")
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> authenticate(
+            @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -37,13 +60,6 @@ public class UserController {
 
         return userData.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
-    }
-
-    @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        User userObj = userRepository.save(user);
-
-        return new ResponseEntity<>(userObj, HttpStatus.OK);
     }
 
     @PostMapping("/updateUserById/{id}")

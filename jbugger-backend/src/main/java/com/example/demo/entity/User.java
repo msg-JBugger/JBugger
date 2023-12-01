@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     private String mobileNumber;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "userId"),
