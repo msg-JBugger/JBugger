@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.enums.RightEnum;
+import com.example.demo.enums.PermissionEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,13 +21,14 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long permissionId;
 
-    private RightEnum type;
+    private PermissionEnum type;
 
     private String description;
 
     @ManyToMany(
-            targetEntity = Role.class,
-            mappedBy = "permissions"
+            cascade = CascadeType.ALL,
+            mappedBy = "permissions",
+            fetch = FetchType.EAGER
     )
     private Set<Role> roles = new HashSet<>();
 }

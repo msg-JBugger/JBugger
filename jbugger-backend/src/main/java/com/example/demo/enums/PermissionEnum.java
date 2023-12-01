@@ -1,8 +1,8 @@
 package com.example.demo.enums;
 
-public enum RightEnum {
-    PERMISSION_MANAGEMENT,
+public enum PermissionEnum {
     USER_MANAGEMENT,
+    PERMISSION_MANAGEMENT,
     BUG_MANAGEMENT,
     BUG_CLOSE
 }

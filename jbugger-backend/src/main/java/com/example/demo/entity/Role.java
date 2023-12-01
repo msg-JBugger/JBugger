@@ -31,8 +31,8 @@ public class Role {
     @ManyToMany
     @JoinTable(
             name = "roles_permissions",
-            joinColumns = @JoinColumn(name = "roleId"),
-            inverseJoinColumns = @JoinColumn(name = "permissionId")
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions = new HashSet<>();
 }
