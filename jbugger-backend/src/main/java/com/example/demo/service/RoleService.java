@@ -9,6 +9,7 @@ import com.example.demo.enums.RoleEnum;
 import com.example.demo.repo.PermissionRepositoryInterface;
 import com.example.demo.repo.RoleRepositoryInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,7 +17,9 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class RoleService {
+    @Autowired
     private final RoleRepositoryInterface roleRepository;
+    @Autowired
     private final PermissionRepositoryInterface permissionRepository;
 
     public List<Role> findAllRoles() {

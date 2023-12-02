@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.auth.AuthenticationRequest;
 import com.example.demo.auth.AuthenticationResponse;
 import com.example.demo.auth.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.repo.UserRepositoryInterface;
 import com.example.demo.service.AuthenticationService;
+import com.example.demo.service.UserService;
+import com.example.demo.user_call.UpdateRequest;
+import com.example.demo.user_call.UpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,20 +25,22 @@ public class UserController {
     @Autowired
     private UserRepositoryInterface userRepository;
 
-    private final AuthenticationService service;
+    private final UserService userService;
+    private final AuthenticationService authService;
 
     @PostMapping("/add")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        return ResponseEntity.ok(authService.register(request));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
+    @PutMapping("/update/{username}")
+    public ResponseEntity<UpdateResponse> update(
+            @PathVariable String username,
+            @RequestBody UpdateRequest request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        return ResponseEntity.ok(userService.update(username, request));
     }
 
     @GetMapping
@@ -44,12 +48,12 @@ public class UserController {
         try {
             List<User> userList = new ArrayList<>(userRepository.findAll());
 
-            if(userList.isEmpty()) {
+            if (userList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -66,7 +70,7 @@ public class UserController {
     public ResponseEntity<User> updateUserById(@PathVariable Long id, @RequestBody User newUserData) {
         Optional<User> oldUserData = userRepository.findById(id);
 
-        if(oldUserData.isPresent()) {
+        if (oldUserData.isPresent()) {
             User updatedUserData = oldUserData.get();
             updatedUserData.setFirstName(newUserData.getFirstName());
             updatedUserData.setLastName(newUserData.getLastName());

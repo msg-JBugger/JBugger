@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.enums.Status;
+import com.example.demo.enums.BugStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class Bug {
 
     private Date targetDate;
 
-    private Status status;
+    private BugStatusEnum status;
 
     private int severity;
 

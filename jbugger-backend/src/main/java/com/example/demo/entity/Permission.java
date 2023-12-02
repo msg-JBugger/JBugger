@@ -26,9 +26,8 @@ public class Permission {
     private String description;
 
     @ManyToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "permissions",
-            fetch = FetchType.EAGER
+            fetch = FetchType.EAGER,
+            mappedBy = "permissions"
     )
     private Set<Role> roles = new HashSet<>();
 }

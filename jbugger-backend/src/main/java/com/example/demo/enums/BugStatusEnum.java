@@ -1,6 +1,6 @@
 package com.example.demo.enums;
 
-public enum Status {
+public enum BugStatusEnum {
     NEW,
     OPEN,
     IN_PROGRESS,

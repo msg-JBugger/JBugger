@@ -10,6 +10,7 @@ import com.example.demo.enums.RoleEnum;
 import com.example.demo.repo.RoleRepositoryInterface;
 import com.example.demo.repo.UserRepositoryInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    @Autowired
     private final UserRepositoryInterface userRepository;
+    @Autowired
     private final RoleRepositoryInterface roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -34,7 +37,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .username(generateUsername(request.getFirstName(), request.getLastName()))
                 .password(passwordEncoder.encode(generatePassword()))
-                .roles(setRoles(request.getRoles()))
+                .roles(generateRoles(request.getRoles()))
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -42,6 +45,17 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public Set<Role> generateRoles(List<String> rolesData) {
+        Set<Role> rolesSet = new HashSet<>();
+        for(String role: rolesData) {
+            rolesSet.add(
+                    roleRepository.findByType(RoleEnum.valueOf(role))
+                            .orElseThrow(() -> new RuntimeException(role + " role not found"))
+            );
+        }
+        return rolesSet;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -59,17 +73,6 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .build();
-    }
-
-    private Set<Role> setRoles(List<String> rolesData) {
-        Set<Role> rolesSet = new HashSet<>();
-        for(String role: rolesData) {
-            rolesSet.add(
-                    roleRepository.findByType(RoleEnum.valueOf(role))
-                            .orElseThrow(() -> new RuntimeException(role + " role not found"))
-            );
-        }
-        return rolesSet;
     }
 
     private String generateUsername(String firstName, String lastName) {
