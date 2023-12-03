@@ -22,12 +22,6 @@ public class Role {
 
     private RoleEnum type;
 
-    @ManyToMany(
-            targetEntity = User.class,
-            mappedBy = "roles"
-    )
-    private Set<User> users = new HashSet<>();
-
     @ManyToMany
     @JoinTable(
             name = "roles_permissions",

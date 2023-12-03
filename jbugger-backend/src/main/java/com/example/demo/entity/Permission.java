@@ -4,9 +4,6 @@ import com.example.demo.enums.PermissionEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Data
 @Builder
 @Entity
@@ -25,9 +22,4 @@ public class Permission {
 
     private String description;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "permissions"
-    )
-    private Set<Role> roles = new HashSet<>();
 }
