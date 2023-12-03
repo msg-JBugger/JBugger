@@ -6,6 +6,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repo.UserRepositoryInterface;
 import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.UserService;
+import com.example.demo.user_call.DeactivateResponse;
 import com.example.demo.user_call.UpdateRequest;
 import com.example.demo.user_call.UpdateResponse;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,13 @@ public class UserController {
             @RequestBody UpdateRequest request
     ) {
         return ResponseEntity.ok(userService.update(username, request));
+    }
+
+    @DeleteMapping("/deactivate/{username}")
+    public ResponseEntity<DeactivateResponse> deactivate(
+            @PathVariable String username
+    ) {
+        return ResponseEntity.ok(userService.deactivate(username));
     }
 
     @GetMapping

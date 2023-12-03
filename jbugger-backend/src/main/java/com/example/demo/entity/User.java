@@ -31,6 +31,7 @@ public class User implements UserDetails {
     private String password;
 
     private String mobileNumber;
+    private boolean enabled;
 
     @ManyToMany(
             fetch = FetchType.EAGER,
@@ -102,6 +103,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+       return this.enabled;
     }
 }
