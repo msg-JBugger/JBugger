@@ -30,13 +30,15 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
+        String generatedPass = generatePassword();
+        String encodedPass = passwordEncoder.encode(generatedPass);
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .mobileNumber(request.getMobileNumber())
                 .email(request.getEmail())
                 .username(generateUsername(request.getFirstName(), request.getLastName()))
-                .password(passwordEncoder.encode(generatePassword()))
+                .password(encodedPass)
                 .roles(generateRoles(request.getRoles()))
                 .enabled(true)
                 .build();
@@ -68,7 +70,6 @@ public class AuthenticationService {
         );
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(); //todo handle exceptions
-
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse
                 .builder()

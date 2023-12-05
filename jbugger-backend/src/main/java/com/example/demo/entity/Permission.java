@@ -21,5 +21,4 @@ public class Permission {
     private PermissionEnum type;
 
     private String description;
-
 }
