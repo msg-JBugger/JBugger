@@ -1,7 +1,10 @@
 package com.example.demo.entity;
 
+import com.example.demo.enums.NotificationEnum;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +22,11 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long notificationId;
 
-    private String type;
+    private NotificationEnum type;
+    private LocalDateTime createdTime;
 
     private String URL;//todo nu inteleg schema de db
-
+    @Column(length = 1024)
     private String msg;
 
     @ManyToMany(

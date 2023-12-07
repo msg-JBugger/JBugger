@@ -111,4 +111,13 @@ public class User implements UserDetails {
     public boolean isEnabled() {
        return this.enabled;
     }
+
+    public String userInfoWithoutPassword() {
+        return String.format("Date: nume = '%s %s', email = '%s', username = '%s', nr. telefon = '%s', roluri = '%s'",
+                firstName, lastName, email, username, mobileNumber, roles.toString());
+    }
+    public String userInfoWithPassword() {
+        return String.format("Date: nume = '%s %s', email = '%s', username = '%s', password = '%s', nr. telefon = '%s', roluri = '%s'",
+                firstName, lastName, email, username, password, mobileNumber, roles.toString());
+    }
 }

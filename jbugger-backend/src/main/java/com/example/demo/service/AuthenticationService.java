@@ -7,10 +7,12 @@ import com.example.demo.config.JwtService;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.enums.RoleEnum;
+import com.example.demo.events.LoginEvent;
 import com.example.demo.repo.RoleRepositoryInterface;
 import com.example.demo.repo.UserRepositoryInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +23,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
+    @Autowired
+    private final ApplicationEventPublisher eventPublisher;
     @Autowired
     private final UserRepositoryInterface userRepository;
     @Autowired
@@ -71,6 +74,9 @@ public class AuthenticationService {
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(); //todo handle exceptions
         var jwtToken = jwtService.generateToken(user);
+        eventPublisher.publishEvent(LoginEvent.builder()
+                .loggedUser(user)
+                .build());
         return AuthenticationResponse
                 .builder()
                 .token(jwtToken)
