@@ -1,10 +1,13 @@
 package com.example.demo.seeding;
 
+import com.example.demo.service.AuthenticationService;
 import com.example.demo.service.PermissionService;
 import com.example.demo.service.RoleService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -14,6 +17,12 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     PermissionService permissionService;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AuthenticationService authenticationService;
 
     @Override
     public void run(String... args) throws Exception {

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequiredArgsConstructor
 public class UserController {
     @Autowired
@@ -31,6 +33,13 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(authService.register(request));
+    }
+
+    @PostMapping("/addAdmin")
+    public ResponseEntity<AuthenticationResponse> registerAdmin(
             @RequestBody RegisterRequest request
     ) {
         return ResponseEntity.ok(authService.register(request));

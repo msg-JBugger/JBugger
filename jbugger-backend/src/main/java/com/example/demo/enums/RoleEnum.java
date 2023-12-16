@@ -1,9 +1,9 @@
 package com.example.demo.enums;
 
 public enum RoleEnum {
-    ADM, //Administrator
-    PM, //Project Manager
-    TM, //Test Manager
-    DEV, //Developer
-    TEST //Tester
+    ROLE_ADMIN, //Administrator
+    ROLE_PROJECT_MANAGER, //Project Manager
+    ROLE_TEST_MANAGER, //Test Manager
+    ROLE_DEVELOPER, //Developer
+    ROLE_TEST //Tester
 }
