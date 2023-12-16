@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-import com.example.demo.enums.BugStatusEnum;
+import com.example.demo.enums.BugSeverity;
+import com.example.demo.enums.BugStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,15 +25,15 @@ public class Bug {
 
     private String description;
 
-    private String version;
+    private String detectedInVersion;
 
-    private String fixedRevision;
+    private String fixedInVersion;
 
     private Date targetDate;
 
-    private BugStatusEnum status;
+    private BugStatus status;
 
-    private int severity;
+    private BugSeverity severity;
 
     @ManyToOne
     @JoinColumn(name = "createdByUserId")
@@ -40,7 +41,7 @@ public class Bug {
 
     @ManyToOne
     @JoinColumn(name = "assignedToUserId")
-    private User assignedTo;
+    private User assignedToUser;
 
     @OneToMany(
             mappedBy = "bug",

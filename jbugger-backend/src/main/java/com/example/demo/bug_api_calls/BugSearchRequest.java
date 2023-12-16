@@ -1,7 +1,7 @@
 package com.example.demo.bug_api_calls;
 
 import com.example.demo.enums.BugSeverity;
-import com.example.demo.enums.BugStatusEnum;
+import com.example.demo.enums.BugStatus;
 import lombok.*;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public class BugSearchRequest {
     String version;
     String fixedRevision;
     Date targetDate;
-    BugStatusEnum status;
+    BugStatus status;
     BugSeverity severity;
     String reporterUsername;
     String assigneeUsername;

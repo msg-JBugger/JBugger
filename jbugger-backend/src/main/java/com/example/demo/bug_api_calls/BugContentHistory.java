@@ -1,7 +1,7 @@
 package com.example.demo.bug_api_calls;
 
 import com.example.demo.entity.History;
-import com.example.demo.enums.BugStatusEnum;
+import com.example.demo.enums.BugStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +16,8 @@ import java.util.Date;
 public class BugContentHistory {
     long historyId;
     Date modifiedDate;
-    BugStatusEnum beforeStatus;
-    BugStatusEnum afterStatus;
+    BugStatus beforeStatus;
+    BugStatus afterStatus;
 
     public static BugContentHistory fromHistory(History history) {
         return BugContentHistory.builder()

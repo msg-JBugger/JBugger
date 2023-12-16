@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 
-import com.example.demo.enums.BugStatusEnum;
+import com.example.demo.enums.BugStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +21,11 @@ public class History {
 
     private Date modifiedDate;
 
-    private BugStatusEnum beforeStatus;
+    private BugStatus beforeStatus;
 
-    private BugStatusEnum afterStatus;
+    private BugStatus afterStatus;
 
     @ManyToOne
     @JoinColumn(name = "bugId")
-    private User bug;
+    private Bug bug;
 }

@@ -1,9 +1,6 @@
 package com.example.demo.bug_api_calls;
 
-import com.example.demo.entity.Bug;
-import com.example.demo.entity.User;
 import com.example.demo.enums.BugSeverity;
-import com.example.demo.enums.BugStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +20,6 @@ public class BugAddRequest {
     Date targetDate;
     BugSeverity severity;
     String assigneeUsername;
-    String attachmentName;
+    String attachmentFilename;
     byte[] attachmentContent;
 }
