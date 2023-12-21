@@ -33,24 +33,26 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
-        String generatedPass = generatePassword();
-        String encodedPass = passwordEncoder.encode(generatedPass);
-        var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .mobileNumber(request.getMobileNumber())
-                .email(request.getEmail())
-                .username(generateUsername(request.getFirstName(), request.getLastName()))
-                .password(encodedPass)
-                .roles(generateRoles(request.getRoles()))
-                .enabled(true)
-                .build();
-        userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse
-                .builder()
-                .token(jwtToken)
-                .build();
+       if (checkPhoneNumberFormat(request.getMobileNumber()) && checkEmailFormat(request.getEmail())){
+           String generatedPass = generatePassword();
+           String encodedPass = passwordEncoder.encode(generatedPass);
+           var user = User.builder()
+                    .firstName(request.getFirstName())
+                    .lastName(request.getLastName())
+                    .mobileNumber(request.getMobileNumber())
+                    .email(request.getEmail())
+                    .username(generateUsername(request.getFirstName(), request.getLastName()))
+                    .password(encodedPass)
+                    .roles(generateRoles(request.getRoles()))
+                    .build();
+            userRepository.save(user);
+            var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse
+                    .builder()
+                    .token(jwtToken)
+                    .build();
+        }
+        else throw new RuntimeException("Invalid Fields");
     }
 
     public Set<Role> generateRoles(List<String> rolesData) {
@@ -73,6 +75,7 @@ public class AuthenticationService {
         );
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(); //todo handle exceptions
+
         var jwtToken = jwtService.generateToken(user);
         eventPublisher.publishEvent(LoginEvent.builder()
                 .loggedUser(user)
@@ -122,5 +125,23 @@ public class AuthenticationService {
         }
         System.out.println(pass);
         return pass.toString();
+    }
+
+    private Boolean checkPhoneNumberFormat(String number) {
+        if (number.isEmpty()) return false;
+        int indexSize = 0;
+        if (number.startsWith("+49") || number.startsWith("+40"))
+            indexSize = 3;
+        else if (number.startsWith("0049") || number.startsWith("0040"))
+            indexSize = 4;
+        if (indexSize > 0) {
+            if (number.subSequence(indexSize, number.length()).length() <= 11) {
+                return true;
+            } else return false;
+        } else return false;
+    }
+
+    private Boolean checkEmailFormat(String email) {
+        return email.endsWith("@msggroup.com");
     }
 }
