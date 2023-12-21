@@ -59,7 +59,7 @@ public class User implements UserDetails {
     private List<Bug> createdBugs;
 
     @OneToMany(
-            mappedBy = "assignedTo",
+            mappedBy = "assignedToUser",
             cascade = CascadeType.ALL
     )
     private List<Bug> assignedBugs;

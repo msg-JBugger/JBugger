@@ -15,7 +15,9 @@ public class Attachment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long attachmentId;
 
-    private String attContent;
+    private String attFilename;
+
+    private byte[] attContent;
 
     @ManyToOne
     @JoinColumn(name = "bugId")
