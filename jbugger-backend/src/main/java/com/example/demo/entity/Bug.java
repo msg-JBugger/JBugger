@@ -65,7 +65,7 @@ public class Bug {
     private Set<History> bugHistory = new HashSet<>();
 
     public String bugInfo() {
-        return String.format("#%s, titlu = '%s', versiune = '%s', severitate = '%d'",
-                getBugId().toString(), title, version, severity);
+        return String.format("#%s, titlu = '%s', versiune = '%s', severitate = '%s'",
+                getBugId().toString(), title, detectedInVersion, severity);
     }
 }

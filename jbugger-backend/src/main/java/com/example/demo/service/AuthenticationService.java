@@ -32,11 +32,12 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
     public AuthenticationResponse register(RegisterRequest request) {
-       if (checkPhoneNumberFormat(request.getMobileNumber()) && checkEmailFormat(request.getEmail())){
-           String generatedPass = generatePassword();
-           String encodedPass = passwordEncoder.encode(generatedPass);
-           var user = User.builder()
+        if (checkPhoneNumberFormat(request.getMobileNumber()) && checkEmailFormat(request.getEmail())) {
+            String generatedPass = generatePassword();
+            String encodedPass = passwordEncoder.encode(generatedPass);
+            var user = User.builder()
                     .firstName(request.getFirstName())
                     .lastName(request.getLastName())
                     .mobileNumber(request.getMobileNumber())
@@ -44,6 +45,7 @@ public class AuthenticationService {
                     .username(generateUsername(request.getFirstName(), request.getLastName()))
                     .password(encodedPass)
                     .roles(generateRoles(request.getRoles()))
+                    .enabled(true)
                     .build();
             userRepository.save(user);
             var jwtToken = jwtService.generateToken(user);
@@ -51,13 +53,12 @@ public class AuthenticationService {
                     .builder()
                     .token(jwtToken)
                     .build();
-        }
-        else throw new RuntimeException("Invalid Fields");
+        } else throw new RuntimeException("Invalid Fields");
     }
 
     public Set<Role> generateRoles(List<String> rolesData) {
         Set<Role> rolesSet = new HashSet<>();
-        for(String role: rolesData) {
+        for (String role : rolesData) {
             rolesSet.add(
                     roleRepository.findByType(RoleEnum.valueOf(role))
                             .orElseThrow(() -> new RuntimeException(role + " role not found"))
@@ -88,23 +89,23 @@ public class AuthenticationService {
 
     private String generateUsername(String firstName, String lastName) {
         StringBuilder username = new StringBuilder();
-        if(lastName.length() > 4) {
-            for(int i = 0; i < 5; i++) {
+        if (lastName.length() > 4) {
+            for (int i = 0; i < 5; i++) {
                 username.append(lastName.charAt(i));
             }
             username.append(firstName.charAt(0));
         } else {
-            for(int i = 0; i < lastName.length(); i++) {
+            for (int i = 0; i < lastName.length(); i++) {
                 username.append(lastName.charAt(i));
             }
-            for(int i = 0; i < 6-lastName.length(); i++) {
+            for (int i = 0; i < 6 - lastName.length(); i++) {
                 username.append(firstName.charAt(i));
             }
         }
         String usr = username.toString();
         usr = usr.toLowerCase();
         int k = 1;
-        while(!userRepository.findByUsername(usr).isEmpty()) {
+        while (!userRepository.findByUsername(usr).isEmpty()) {
             usr = usr.substring(0, 6) + k;
             k++;
         }
@@ -119,7 +120,7 @@ public class AuthenticationService {
                 "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
         StringBuilder pass = new StringBuilder();
         Random rand = new Random();
-        for(int i = 0; i < 31; i++) {
+        for (int i = 0; i < 31; i++) {
             String randomElement = letters.get(rand.nextInt(letters.size()));
             pass.append(randomElement);
         }

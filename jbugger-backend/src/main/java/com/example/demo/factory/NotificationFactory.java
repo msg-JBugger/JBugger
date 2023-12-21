@@ -56,7 +56,7 @@ public class NotificationFactory {
                 .type(NotificationEnum.BUG_STATUS_UPDATED)
                 .users(new HashSet<>() {{
                     add(updatedBug.getCreatedByUser());
-                    add(updatedBug.getAssignedTo());
+                    add(updatedBug.getAssignedToUser());
                 }})
                 .URL("")
                 .msg(String.format("Statusul bug-ului #%s a fost modificat!",
@@ -69,7 +69,7 @@ public class NotificationFactory {
         .type(NotificationEnum.BUG_UPDATED)
                 .users(new HashSet<>() {{
                     add(bug.getCreatedByUser());
-                    add(bug.getAssignedTo());
+                    add(bug.getAssignedToUser());
                 }})
                 .URL("")
                 .msg(String.format("Bug-ul #%s a fost %s!",
@@ -82,7 +82,7 @@ public class NotificationFactory {
                 .type(NotificationEnum.BUG_CLOSED)
                 .users(new HashSet<>() {{
                     add(closedBug.getCreatedByUser());
-                    add(closedBug.getAssignedTo());
+                    add(closedBug.getAssignedToUser());
                 }})
                 .URL("")
                 .msg(String.format("Bug-ul #%s a fost inchis!",

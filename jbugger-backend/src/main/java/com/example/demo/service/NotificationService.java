@@ -52,7 +52,7 @@ public class NotificationService {
     }
     @EventListener
     public void handleUserDeactivatedEvent(UserDeactivateEvent event) {
-        Notification notification = notificationFactory.createUserDeactivatedNotification(usersWithRole(RoleEnum.ADM), event.getDeactivatedUser());
+        Notification notification = notificationFactory.createUserDeactivatedNotification(usersWithRole(RoleEnum.ROLE_ADMIN), event.getDeactivatedUser());
         notificationRepository.save(notification);
     }
     @EventListener
