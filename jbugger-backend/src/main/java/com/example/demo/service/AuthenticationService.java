@@ -7,10 +7,12 @@ import com.example.demo.config.JwtService;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.example.demo.enums.RoleEnum;
+import com.example.demo.events.LoginEvent;
 import com.example.demo.repo.RoleRepositoryInterface;
 import com.example.demo.repo.UserRepositoryInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +23,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
+    @Autowired
+    private final ApplicationEventPublisher eventPublisher;
     @Autowired
     private final UserRepositoryInterface userRepository;
     @Autowired
@@ -30,14 +33,15 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
-
+        String generatedPass = generatePassword();
+        String encodedPass = passwordEncoder.encode(generatedPass);
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .mobileNumber(request.getMobileNumber())
                 .email(request.getEmail())
                 .username(generateUsername(request.getFirstName(), request.getLastName()))
-                .password(passwordEncoder.encode(generatePassword()))
+                .password(encodedPass)
                 .roles(generateRoles(request.getRoles()))
                 .enabled(true)
                 .build();
@@ -69,8 +73,10 @@ public class AuthenticationService {
         );
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(); //todo handle exceptions
-
         var jwtToken = jwtService.generateToken(user);
+        eventPublisher.publishEvent(LoginEvent.builder()
+                .loggedUser(user)
+                .build());
         return AuthenticationResponse
                 .builder()
                 .token(jwtToken)
