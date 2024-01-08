@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e073bda0-eadc-4edf-93ec-96d54c607b76" name="Changes" comment="add security for roles in user functionalities">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/bug_api_calls/BugSearchRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/bug_api_calls/BugSearchRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/config/JWTAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/config/JWTAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/BugController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/BugController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/Bug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/Bug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="backend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2YrJEvECsQW0OXsgxFtb9thWxlV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/andya/Desktop/SigmaRide-Backend&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;bfe5071cd6dcc660156b370e98734d9d&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.demo.controller" />
+      <recent name="com.example.demo.user_call" />
+      <recent name="com.example.demo.auth" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <module name="jbugger-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e073bda0-eadc-4edf-93ec-96d54c607b76" name="Changes" comment="" />
+      <created>1701277668948</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701277668948</updated>
+      <workItem from="1701277672246" duration="14354000" />
+      <workItem from="1701300142302" duration="4183000" />
+      <workItem from="1701342895246" duration="21566000" />
+      <workItem from="1701375694385" duration="6308000" />
+      <workItem from="1701423131984" duration="20657000" />
+      <workItem from="1701467378453" duration="3348000" />
+      <workItem from="1701473380200" duration="1705000" />
+      <workItem from="1701518920702" duration="34137000" />
+      <workItem from="1701600859652" duration="11358000" />
+      <workItem from="1701710194047" duration="820000" />
+      <workItem from="1701795226145" duration="6077000" />
+      <workItem from="1701970407761" duration="1537000" />
+      <workItem from="1702023215908" duration="1240000" />
+      <workItem from="1702243182191" duration="1862000" />
+      <workItem from="1702304779492" duration="599000" />
+      <workItem from="1702730124615" duration="34000" />
+      <workItem from="1702730165346" duration="16761000" />
+      <workItem from="1702843327162" duration="1314000" />
+      <workItem from="1703153284392" duration="599000" />
+      <workItem from="1703158663670" duration="9978000" />
+      <workItem from="1703237157554" duration="1477000" />
+      <workItem from="1703604307554" duration="683000" />
+      <workItem from="1703875460644" duration="5092000" />
+      <workItem from="1703947610985" duration="5052000" />
+      <workItem from="1703966269080" duration="1715000" />
+      <workItem from="1703979145945" duration="4055000" />
+      <workItem from="1704295659873" duration="6212000" />
+      <workItem from="1704635365920" duration="641000" />
+      <workItem from="1704637647217" duration="82000" />
+      <workItem from="1704657912145" duration="995000" />
+      <workItem from="1704727725171" duration="4711000" />
+      <workItem from="1704736031915" duration="693000" />
+    </task>
+    <task id="LOCAL-00001" summary="add jwt security for user login">
+      <created>1701294190316</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701294190316</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add database relations between entities">
+      <created>1701359918905</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701359918905</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add preload data for roles and permissions">
+      <created>1701451884605</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701451884605</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix user add login requests and security">
+      <created>1701470294407</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470294407</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add data load for permissions">
+      <created>1701521361171</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1701521361171</updated>
+    </task>
+    <task id="LOCAL-00006" summary="someone save me">
+      <created>1701548955004</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701548955004</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add update">
+      <created>1701608574898</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701608574898</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add deactivate">
+      <created>1701609950984</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701609950984</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add security for roles in user functionalities">
+      <created>1702748179702</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702748179702</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add jwt security for user login" />
+    <MESSAGE value="add database relations between entities" />
+    <MESSAGE value="add roles in db in application config" />
+    <MESSAGE value="add preload data for roles and permissions" />
+    <MESSAGE value="fix user add login requests and security" />
+    <MESSAGE value="add data load for permissions" />
+    <MESSAGE value="someone save me" />
+    <MESSAGE value="add update" />
+    <MESSAGE value="add deactivate" />
+    <MESSAGE value="add security for roles in user functionalities" />
+    <option name="LAST_COMMIT_MESSAGE" value="add security for roles in user functionalities" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="bugRepository.findAll().get(0).createdByUser" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/jbugger_backend$Main.ic" NAME="Main Coverage Results" MODIFIED="1701604366135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
