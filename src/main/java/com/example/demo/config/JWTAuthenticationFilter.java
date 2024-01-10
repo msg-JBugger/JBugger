@@ -24,7 +24,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getServletPath().equals("/api/auth/login");
+        return request.getServletPath().equals("/api/auth/login") || request.getRequestURI().contains("swagger") || request.getRequestURI().contains("v3/api-docs");
     }
 
     @Override
