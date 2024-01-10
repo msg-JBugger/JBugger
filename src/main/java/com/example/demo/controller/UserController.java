@@ -33,32 +33,23 @@ public class UserController {
     private final AuthenticationService authService;
 
     @PostMapping("/add")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/addAdmin")
-    public ResponseEntity<AuthenticationResponse> registerAdmin(
-            @RequestBody RegisterRequest request
-    ) {
+    public ResponseEntity<AuthenticationResponse> registerAdmin(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PutMapping("/update/{username}")
-    public ResponseEntity<UpdateResponse> update(
-            @PathVariable String username,
-            @RequestBody UpdateRequest request
-    ) {
+    public ResponseEntity<UpdateResponse> update(@PathVariable String username, @RequestBody UpdateRequest request) {
 
         return ResponseEntity.ok(userService.update(username, request, SecurityContextHolder.getContext().getAuthentication().getName()));
     }
 
     @DeleteMapping("/deactivate/{username}")
-    public ResponseEntity<DeactivateResponse> deactivate(
-            @PathVariable String username
-    ) {
+    public ResponseEntity<DeactivateResponse> deactivate(@PathVariable String username) {
         return ResponseEntity.ok(userService.deactivate(username));
     }
 
@@ -77,12 +68,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getUserById/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        Optional<User> userData = userRepository.findById(id);
-
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
+        Optional<User> userData = userRepository.findByUsername(username);
         return userData.map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
     }
 
     @PostMapping("/updateUserById/{id}")

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,6 +34,7 @@ public class User implements UserDetails {
     private String mobileNumber;
     private boolean enabled;
 
+    @JsonIgnore
     @ManyToMany(
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
@@ -44,6 +46,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "user_notification",
@@ -52,6 +55,7 @@ public class User implements UserDetails {
     )
     private Set<Notification> notifications = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "createdByUser",
             cascade = CascadeType.ALL
@@ -59,6 +63,7 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Bug> createdBugs;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "assignedToUser",
             cascade = CascadeType.ALL
@@ -66,6 +71,7 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Bug> assignedBugs;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
             targetEntity = Comment.class,
