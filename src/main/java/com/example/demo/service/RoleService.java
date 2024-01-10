@@ -38,19 +38,19 @@ public class RoleService {
 
     private Set<Permission> generatePermissions(String roleType) {
         switch (roleType) {
-            case "ADM" -> {
+            case "ROLE_ADMIN" -> {
                 return generateAdminPermissions();
             }
-            case "PM" -> {
+            case "ROLE_PROJECT_MANAGER" -> {
                 return generateProjectManagerPermissions();
             }
-            case "TM" -> {
+            case "ROLE_TEST_MANAGER" -> {
                 return generateTestManagerPermissions();
             }
-            case "DEV" -> {
+            case "ROLE_DEVELOPER" -> {
                 return generateDeveloperPermissions();
             }
-            case "TEST" -> {
+            case "ROLE_TEST" -> {
                 return generateTesterPermissions();
             }
         }
@@ -103,7 +103,7 @@ public class RoleService {
     private Set<Permission> generateDeveloperPermissions() {
         Set<Permission> permissionSet = new HashSet<>();
         permissionSet.add(
-                permissionRepository.findByType(PermissionEnum.BUG_MANAGEMENT)
+                permissionRepository.findByType(PermissionEnum.BUG_CLOSE)
                         .orElseThrow(() -> new RuntimeException("Bug Management Permission not found"))
         );
         return permissionSet;
@@ -112,7 +112,7 @@ public class RoleService {
     private Set<Permission> generateTesterPermissions() {
         Set<Permission> permissionSet = new HashSet<>();
         permissionSet.add(
-                permissionRepository.findByType(PermissionEnum.BUG_CLOSE)
+                permissionRepository.findByType(PermissionEnum.BUG_MANAGEMENT)
                         .orElseThrow(() -> new RuntimeException("Bug Close Permission not found"))
         );
         return permissionSet;
