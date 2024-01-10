@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -37,6 +38,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/user/**").hasRole("ADMIN")
                         .requestMatchers("/api/bug/**").hasAnyRole("ADMIN", "TEST_MANAGER", "DEVELOPER")
                         .requestMatchers("/api/right/**").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
