@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Role;
+import com.example.demo.entity.User;
 import com.example.demo.enums.RoleEnum;
 import com.example.demo.events.UserDeactivateEvent;
 import com.example.demo.events.UserUpdateEvent;
@@ -89,5 +90,9 @@ public class UserService {
             );
         }
         return rolesSet;
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

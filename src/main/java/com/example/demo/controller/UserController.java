@@ -53,10 +53,10 @@ public class UserController {
         return ResponseEntity.ok(userService.deactivate(username));
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
-            List<User> userList = new ArrayList<>(userRepository.findAll());
+            List<User> userList = new ArrayList<>(userService.findAll());
 
             if (userList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
