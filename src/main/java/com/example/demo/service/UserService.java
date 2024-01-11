@@ -67,7 +67,7 @@ public class UserService {
                 -> new UsernameNotFoundException("User with username " + username + " not found"));
         DeactivateResponse dr = new DeactivateResponse();
 
-        if(user.isEnabled()) {
+        if (user.isEnabled()) {
             user.setEnabled(false);
             userRepository.save(user);
             dr.setMsg("User with username " + username + " has been deactivated");

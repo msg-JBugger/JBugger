@@ -15,8 +15,8 @@ public class BugSearchRequest {
     int pageSize;
     String title;
     String description;
-    String version;
-    String fixedRevision;
+    String detectedInVersion;
+    String fixedInVersion;
     Date targetDate;
     BugStatus status;
     BugSeverity severity;

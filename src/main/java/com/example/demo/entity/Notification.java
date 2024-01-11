@@ -1,11 +1,13 @@
 package com.example.demo.entity;
 
 import com.example.demo.enums.NotificationEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -25,13 +27,22 @@ public class Notification {
     private NotificationEnum type;
     private LocalDateTime createdTime;
 
-    private String URL;//todo nu inteleg schema de db
+    private String URL;
     @Column(length = 1024)
     private String msg;
 
+    @JsonIgnore
+    @ToString.Exclude
     @ManyToMany(
             targetEntity = User.class,
-            mappedBy = "notifications"
+            mappedBy = "notifications",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
+
     private Set<User> users = new HashSet<>();
+    @Override
+    public int hashCode() {
+        return Objects.hash(notificationId);
+    }
 }

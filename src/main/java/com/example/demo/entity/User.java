@@ -34,7 +34,6 @@ public class User implements UserDetails {
     private String mobileNumber;
     private boolean enabled;
 
-    @JsonIgnore
     @ManyToMany(
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
@@ -47,7 +46,8 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     @JoinTable(
             name = "user_notification",
             joinColumns = @JoinColumn(name = "userId"),
@@ -125,5 +125,10 @@ public class User implements UserDetails {
     public String userInfoWithPassword() {
         return String.format("Date: nume = '%s %s', email = '%s', username = '%s', password = '%s', nr. telefon = '%s', roluri = '%s'",
                 firstName, lastName, email, username, password, mobileNumber, roles.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, username);
     }
 }

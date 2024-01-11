@@ -5,11 +5,15 @@ import com.example.demo.entity.Attachment;
 import com.example.demo.entity.Bug;
 import com.example.demo.entity.History;
 import com.example.demo.enums.BugStatus;
+import com.example.demo.events.BugAddEvent;
+import com.example.demo.events.BugStatusUpdateEvent;
+import com.example.demo.events.BugUpdateEvent;
 import com.example.demo.repo.AttachmentRepositoryInterface;
 import com.example.demo.repo.BugRepositoryInterface;
 import com.example.demo.repo.HistoryRepositoryInterface;
 import com.example.demo.repo.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,15 +28,18 @@ public class BugService {
     private final AttachmentRepositoryInterface attachmentRepository;
     private final HistoryRepositoryInterface historyRepository;
 
+    private final ApplicationEventPublisher eventPublisher;
+
     @Autowired
     public BugService(BugRepositoryInterface bugRepository,
                       UserRepositoryInterface userRepository,
                       AttachmentRepositoryInterface attachmentRepository,
-                      HistoryRepositoryInterface historyRepository) {
+                      HistoryRepositoryInterface historyRepository, ApplicationEventPublisher eventPublisher) {
         this.bugRepository = bugRepository;
         this.userRepository = userRepository;
         this.attachmentRepository = attachmentRepository;
         this.historyRepository = historyRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public Optional<BugContent> getBugById(long bugId) {
@@ -50,8 +57,8 @@ public class BugService {
                 .sorted(Comparator.comparing(Bug::getSeverity))
                 .filter(bug -> request.getTitle() == null || bug.getTitle().contains(request.getTitle()))
                 .filter(bug -> request.getDescription() == null || bug.getDescription().contains(request.getDescription()))
-                .filter(bug -> request.getVersion() == null || bug.getDetectedInVersion().contains(request.getVersion()))
-                .filter(bug -> request.getFixedRevision() == null || bug.getFixedInVersion().contains(request.getFixedRevision()))
+                .filter(bug -> request.getDetectedInVersion() == null || bug.getDetectedInVersion().contains(request.getDetectedInVersion()))
+                .filter(bug -> request.getFixedInVersion() == null || bug.getFixedInVersion().contains(request.getFixedInVersion()))
                 .filter(bug -> request.getTargetDate() == null || bug.getTargetDate().equals(request.getTargetDate()))
                 .filter(bug -> request.getStatus() == null || bug.getStatus().equals(request.getStatus()))
                 .filter(bug -> request.getSeverity() == null || bug.getSeverity() == request.getSeverity())
@@ -112,6 +119,9 @@ public class BugService {
 
     public BugContent updateBugStatus(long bugId, BugStatusUpdateRequest request) {
         // We can update the bug status by updating the whole bug and changing only the status
+        eventPublisher.publishEvent(BugStatusUpdateEvent.builder()
+                .updatedBug(bugRepository.findById(bugId).get())
+                .build());
         var bugUpdateRequest = BugUpdateRequest.builder()
                 .status(request.getStatus())
                 .build();
@@ -157,7 +167,10 @@ public class BugService {
         bug.setAssignedToUser(assignee);
 
         // Save the bug to the database
-        bug = bugRepository.save(bug);
+         bug = bugRepository.save(bug);
+                eventPublisher.publishEvent(BugAddEvent.builder()
+                        .addedBug(bug)
+                        .build());
         return bug;
     }
 
@@ -170,7 +183,6 @@ public class BugService {
         attachment.setAttFilename(attachmentFilename);
         attachment.setAttContent(attachmentContent);
         attachment.setBug(bug);
-        // todo: validate file size (applies when adding a bug with an attachment as well)
 
         // Save the attachment to the database
         attachment = attachmentRepository.save(attachment);
@@ -184,7 +196,6 @@ public class BugService {
 
         // Get current date
         Date currentDate = java.sql.Timestamp.valueOf(LocalDateTime.now());
-        // todo: look into more flexible date classes (LocalDate) and how to handle timezones
 
         // Create a new history entry
         var historyEntry = new History();
@@ -226,6 +237,9 @@ public class BugService {
             bug.setAssignedToUser(assignee);
 
         bug = bugRepository.save(bug);
+        eventPublisher.publishEvent(BugUpdateEvent.builder()
+                .updatedBug(bug)
+                .build());
         return bug;
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class Comment {
     @JoinColumn(name = "userId")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bugId")
     private Bug bug;

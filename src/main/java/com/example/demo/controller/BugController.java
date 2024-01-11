@@ -40,8 +40,8 @@ public class BugController {
             @RequestParam int pageSize,
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam String version,
-            @RequestParam String fixedRevision,
+            @RequestParam String detectedInVersion,
+            @RequestParam String fixedInVersion,
             @RequestParam String targetDate,
             @RequestParam String status,
             @RequestParam String severity,
@@ -54,8 +54,8 @@ public class BugController {
                 .pageSize(pageSize)
                 .title(Objects.equals(title, "") ? null : title)
                 .description(Objects.equals(description, "") ? null : description)
-                .version(Objects.equals(version, "") ? null : version)
-                .fixedRevision(Objects.equals(fixedRevision, "") ? null : fixedRevision)
+                .detectedInVersion(Objects.equals(detectedInVersion, "") ? null : detectedInVersion)
+                .fixedInVersion(Objects.equals(fixedInVersion, "") ? null : fixedInVersion)
                 //.targetDate(new SimpleDateFormat("MM-dd-yyyy").parse(targetDate))
                 .targetDate(null)
                 //.status(BugStatus.valueOf(status))

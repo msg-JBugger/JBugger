@@ -35,12 +35,16 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/user/addAdmin").permitAll()
+                        .requestMatchers("/api/bug/search").permitAll()
+                        .requestMatchers("/api/bug/{bugId}").permitAll()
+                        .requestMatchers("/api/user/{username}").permitAll()
                         .requestMatchers("/api/user/**").hasRole("ADMIN")
                         .requestMatchers("/api/bug/**").hasAnyRole("ADMIN", "TEST_MANAGER", "DEVELOPER")
                         .requestMatchers("/api/right/**").hasRole("ADMIN")
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
-
+                        .requestMatchers("/api/notification/**").permitAll()
+                        .requestMatchers("/api/comments/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess
