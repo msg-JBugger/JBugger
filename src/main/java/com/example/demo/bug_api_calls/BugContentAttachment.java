@@ -15,17 +15,17 @@ import java.util.Base64;
 public class BugContentAttachment {
     long attachmentId;
     String attachmentFilename;
-    byte[] attachmentContent;
+    String attachmentContent;
 
     public static BugContentAttachment fromAttachment(Attachment attachment) {
 
         // Convert attachment content from String to byte[] by interpreting the String as Base64 encoded data.
-        byte[] attachmentContent = Base64.getDecoder().decode(attachment.getAttContent());
-
+//        byte[] attachmentContent = Base64.getDecoder().decode(attachment.getAttContent());
+        String content = Base64.getEncoder().encodeToString(attachment.getAttContent());
         return BugContentAttachment.builder()
                 .attachmentId(attachment.getAttachmentId())
-                .attachmentFilename("") // todo - get filename from attachment
-                .attachmentContent(attachmentContent)
+                .attachmentFilename(attachment.getAttFilename())
+                .attachmentContent(content)
                 .build();
     }
 }
